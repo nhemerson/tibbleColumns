@@ -1,7 +1,7 @@
 # tibbleColumns
 Helpful tidyverse functions that output tibbles
 
-How to install:
+<b>How to install:</b>
 
 library(devtools) <br>
 install_github("nhemerson/tibbleColumns") <br>
