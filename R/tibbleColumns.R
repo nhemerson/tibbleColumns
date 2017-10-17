@@ -139,3 +139,20 @@ change_XoX_column_group <- function(df, col1, col2, XoX){
   
   df3 %>% select(!!col1, !!col2) %>% mutate(!!xox_col := ((!!col2) - (!!col1))/(!!col1)*100) %>% ungroup()
 }
+
+
+#' Tibble a data frame state within a pipe series
+#'
+#' Create a tibble for the state of a data frame within a pipe series
+#' @param df,name
+#' @import tidyverse
+#' @export
+#' @examples 
+#' mtcars %>% group_by(cyl) %>% prop_column_group(cyl) %>% tibble_out("grouped") %>% filter(Count >9)
+
+tibble_out <- function(df,name){
+  nam <<- tbl_df(df)
+  assign(name,nam,envir=.GlobalEnv)
+  rm(nam, envir = .GlobalEnv)
+  tbl_df(df)
+}

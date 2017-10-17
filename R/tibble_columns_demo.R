@@ -43,3 +43,7 @@ ttest_tibble(t1$num,t2$num)
 
 #lm output
 mtcars %>% select(mpg,cyl,wt) %>% lm_summary_tibble(mpg)
+
+
+#tibble_out
+mtcars %>% group_by(cyl) %>% prop_column_group(cyl) %>% tibble_out("grouped") %>% filter(Count >9)
