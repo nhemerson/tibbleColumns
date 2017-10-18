@@ -6,5 +6,5 @@ Helpful tidyverse functions that output tibbles.
 library(devtools) <br>
 install_github("nhemerson/tibbleColumns") <br>
 library(tidyverse) <br>
-library(tibbleColumns) <br>
 library(broom)
+library(tibbleColumns) 
