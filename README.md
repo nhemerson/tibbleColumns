@@ -7,3 +7,4 @@ library(devtools) <br>
 install_github("nhemerson/tibbleColumns") <br>
 library(tidyverse) <br>
 library(tibbleColumns) 
+library(broom)
