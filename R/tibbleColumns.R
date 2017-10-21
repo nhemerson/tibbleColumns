@@ -137,7 +137,7 @@ change_XoX_column_group <- function(df, col1, col2, XoX){
   
   df3 <- df2 %>% spread(V1, V2)
   
-  names(df3)[2:3] <- c(quo_name(col1), quo_name(col2))
+  df3 <- df3 %>% select(quo_name(col1), quo_name(col2))
   
   df3 %>% select(!!col1, !!col2) %>% mutate(!!xox_col := ((!!col2) - (!!col1))/(!!col1)*100) %>% ungroup()
 }
