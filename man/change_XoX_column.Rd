@@ -6,6 +6,9 @@
 \usage{
 change_XoX_column(df, col1, col2, XoX)
 }
+\arguments{
+\item{df, col1, col2, XoX}{a data frame two columnnames and XoX name for new column}
+}
 \description{
 Creates a change column based on integer or numeric column
 }

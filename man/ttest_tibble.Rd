@@ -2,9 +2,12 @@
 % Please edit documentation in R/tibbleColumns.R
 \name{ttest_tibble}
 \alias{ttest_tibble}
-\title{A tidy t.test that allows to pass a tibble to it}
+\title{A tidy t.test summary tibble}
 \usage{
 ttest_tibble(df1, df2)
+}
+\arguments{
+\item{df1, df2}{two tibble dataframes}
 }
 \description{
 Allows to pass a tibble data_frame to the base R t.test 

@@ -6,6 +6,9 @@
 \usage{
 change_XoX_column_group(df, col1, col2, XoX)
 }
+\arguments{
+\item{df, col1, col2, XoX}{a data frame two columnnames and XoX name for new column}
+}
 \description{
 Creates a change column based on a group. This function is specific 
 as the data must have three columns at most. A category group column 

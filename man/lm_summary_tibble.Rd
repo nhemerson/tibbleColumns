@@ -6,9 +6,13 @@
 \usage{
 lm_summary_tibble(df, dep)
 }
+\arguments{
+\item{df, dep}{a dataframe and a dependent variable name}
+}
 \description{
-This function spits out a lm summary
+This function returns a tidy tibble output of the most important parts
+of a lm summary a la the broom package.
 }
 \examples{
-mtcars \%>\% prop_column_group(cyl)
+mtcars \%>\% select(mpg,cyl,wt) \%>\% lm_summary_tibble(mpg)
 }

@@ -6,8 +6,12 @@
 \usage{
 tibble_out(df, name)
 }
+\arguments{
+\item{df, name}{a data frame and a name for created tibble object}
+}
 \description{
-Create a tibble for the state of a data frame within a pipe series
+Create a tibble for the state of a data frame within a pipe series and 
+assign it as an object to the global environment.
 }
 \examples{
 mtcars \%>\% group_by(cyl) \%>\% prop_column_group(cyl) \%>\% tibble_out("grouped") \%>\% filter(Count >9)
