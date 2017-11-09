@@ -157,3 +157,20 @@ tibble_out <- function(df,name){
   rm(nam, envir = .GlobalEnv)
   tbl_df(df)
 }
+
+#' Shorter alias for tibble_out fucnction - Tibble a data frame state within a pipe series
+#'
+#' Create a tibble for the state of a data frame within a pipe series and 
+#' assign it as an object to the global environment.
+#' @param df,name a data frame and a name for created tibble object
+#' @import tidyverse
+#' @export tbl_out
+#' @examples 
+#' mtcars %>% group_by(cyl) %>% prop_column_group(cyl) %>% tibble_out("grouped") %>% filter(Count >9)
+
+tbl_out <- function(df,name){
+  nam <<- tbl_df(df)
+  assign(name,nam,envir=.GlobalEnv)
+  rm(nam, envir = .GlobalEnv)
+  tbl_df(df)
+}
