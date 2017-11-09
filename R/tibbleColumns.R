@@ -166,7 +166,7 @@ tibble_out <- function(df,name){
 #' @import tidyverse
 #' @export tbl_out
 #' @examples 
-#' mtcars %>% group_by(cyl) %>% prop_column_group(cyl) %>% tibble_out("grouped") %>% filter(Count >9)
+#' mtcars %>% group_by(cyl) %>% prop_column_group(cyl) %>% tbl_out("grouped") %>% filter(Count >9)
 
 tbl_out <- function(df,name){
   nam <<- tbl_df(df)
