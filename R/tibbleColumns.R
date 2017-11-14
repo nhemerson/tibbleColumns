@@ -5,7 +5,7 @@
 #' @param df,dep a dataframe and a dependent variable name
 #' @import tidyverse broom
 #' @export lm_summary_tibble
-#' @examples 
+#' @examples
 #' mtcars %>% select(mpg,cyl,wt) %>% lm_summary_tibble(mpg)
 
 lm_summary_tibble <- function(df, dep){
@@ -20,13 +20,13 @@ lm_summary_tibble <- function(df, dep){
 
 #' A tidy t.test summary tibble
 #'
-#' Allows to pass a tibble data_frame to the base R t.test 
-#' function over two numeric columns. Then extracts the output 
+#' Allows to pass a tibble data_frame to the base R t.test
+#' function over two numeric columns. Then extracts the output
 #' statistics and outputs a tibble.
 #' @param df1,df2 two tibble dataframes
 #' @import tidyverse
 #' @export ttest_tibble
-#' @examples 
+#' @examples
 #' ttest_tibble(t1$num,t2$num)
 
 ttest_tibble <- function(df1,df2){
@@ -46,11 +46,11 @@ ttest_tibble <- function(df1,df2){
 
 #' Proportion Column by Group
 #'
-#' Groups one column, adds a column for count of each group 
+#' Groups one column, adds a column for count of each group
 #' and adds a column for proportion of total based on count
 #' @param df,group a dataframe and a group column name
 #' @export prop_column_group
-#' @examples 
+#' @examples
 #' mtcars %>% prop_column_group(cyl)
 
 prop_column_group <- function(df, group){
@@ -64,7 +64,7 @@ prop_column_group <- function(df, group){
 #' This function creates a proportion column
 #' @param df,col a data frame and a column name
 #' @export prop_column
-#' @examples 
+#' @examples
 #' mtcars %>% count(cyl, disp) %>% arrange(desc(n)) %>% prop_column(n)
 
 prop_column <- function(df, col) {
@@ -81,7 +81,7 @@ prop_column <- function(df, col) {
 #' @param df,col a data frame and a column name
 #' @import tidyverse
 #' @export prop_column
-#' @examples 
+#' @examples
 #' mtcars %>% count(cyl, disp) %>% arrange(desc(n)) %>% prop_column(n)
 
 prop_column <- function(df, col) {
@@ -97,7 +97,7 @@ prop_column <- function(df, col) {
 #' @param df,col1,col2,XoX a data frame two columnnames and XoX name for new column
 #' @import tidyverse
 #' @export change_XoX_column
-#' @examples 
+#' @examples
 #' change_XoX_column(mtcars, drat, wt, "MoM")
 
 change_XoX_column <- function(df, col1, col2, XoX) {
@@ -112,16 +112,16 @@ change_XoX_column <- function(df, col1, col2, XoX) {
 
 #' General X over X Change Column by Group
 #'
-#' Creates a change column based on a group. This function is specific 
-#' as the data must have three columns at most. A category group column 
-#' group a/b, device type, segment, a calendar group month, year, day 
-#' and a numeric column to aggregate users, visits, clicks etc.. The 
-#' data columns MUST be in that order as well. Category Group, Calendar 
+#' Creates a change column based on a group. This function is specific
+#' as the data must have three columns at most. A category group column
+#' group a/b, device type, segment, a calendar group month, year, day
+#' and a numeric column to aggregate users, visits, clicks etc.. The
+#' data columns MUST be in that order as well. Category Group, Calendar
 #' Group, Numeric Aggregate.
 #' @param df,col1,col2,XoX a data frame two columnnames and XoX name for new column
 #' @import tidyverse
 #' @export change_XoX_column_group
-#' @examples 
+#' @examples
 #' tb %>% select(Type, Month, Users) %>% change_XoX_column_group(Dec,Jan,"MoM")
 
 change_XoX_column_group <- function(df, col1, col2, XoX){
@@ -143,15 +143,17 @@ change_XoX_column_group <- function(df, col1, col2, XoX){
 
 #' Tibble a data frame state within a pipe series
 #'
-#' Create a tibble for the state of a data frame within a pipe series and 
+#' Create a tibble for the state of a data frame within a pipe series and
 #' assign it as an object to the global environment.
 #' @param df,name a data frame and a name for created tibble object
+#' @param suppress prevents the function from creating the tibble in the parent environment
 #' @import tidyverse
 #' @export tibble_out
-#' @examples 
+#' @examples
 #' mtcars %>% group_by(cyl) %>% prop_column_group(cyl) %>% tibble_out("grouped") %>% filter(Count >9)
 
-tibble_out <- function(df,name){
+tibble_out <- function(df,name,suppress=FALSE){
+  if (suppress){return(df)}
   nam <<- tbl_df(df)
   assign(name,nam,envir=.GlobalEnv)
   rm(nam, envir = .GlobalEnv)
@@ -168,9 +170,42 @@ tibble_out <- function(df,name){
 #' @examples 
 #' mtcars %>% group_by(cyl) %>% prop_column_group(cyl) %>% tbl_out("grouped") %>% filter(Count >9)
 
-tbl_out <- function(df,name){
+tbl_out <- function(df,name,suppress=FALSE){
+  if (suppress){return(df)}
   nam <<- tbl_df(df)
   assign(name,nam,envir=.GlobalEnv)
   rm(nam, envir = .GlobalEnv)
   tbl_df(df)
+}
+
+
+#' Run a function outside of the pipe sequence
+#'
+#' Run a function outside of the pipe sequence and create a tibble in global environment for it 
+#' while passing previous state of data frame through to the next pipe step.
+#' @param df,fun,name a data frame, a function to run and a name for created tibble object
+#' @import tidyverse
+#' @export tbl_module
+#' @examples 
+#' mtcars %>% tbl_out("cars") %>% tbl_module(filter(.,hp > 150),"fastCars") %>% tbl_lookup(cyl) %>% tbl_out("cylList")
+
+tbl_module <- function(df,fun, name){
+  nam <<- fun
+  assign(name,nam,envir=.GlobalEnv)
+  rm(nam, envir = .GlobalEnv)
+  tbl_df(df)
+}
+
+#' Get a list of groups in certain column
+#'
+#' Designate a column of and get a single column listing the groups in that column.
+#' @param df,group a data frame and a column to get group list
+#' @import tidyverse
+#' @export tbl_lookup
+#' @examples 
+#' mtcars %>% tbl_out("cars") %>% tbl_module(filter(.,hp > 150),"fastCars") %>% tbl_lookup(cyl) %>% tbl_out("cylList")
+
+tbl_lookup <- function(df,group){
+  group <- enquo(group)
+  df %>% count(!!group) %>% select(-n)
 }
