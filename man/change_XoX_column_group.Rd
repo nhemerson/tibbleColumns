@@ -10,11 +10,11 @@ change_XoX_column_group(df, col1, col2, XoX)
 \item{df, col1, col2, XoX}{a data frame two columnnames and XoX name for new column}
 }
 \description{
-Creates a change column based on a group. This function is specific 
-as the data must have three columns at most. A category group column 
-group a/b, device type, segment, a calendar group month, year, day 
-and a numeric column to aggregate users, visits, clicks etc.. The 
-data columns MUST be in that order as well. Category Group, Calendar 
+Creates a change column based on a group. This function is specific
+as the data must have three columns at most. A category group column
+group a/b, device type, segment, a calendar group month, year, day
+and a numeric column to aggregate users, visits, clicks etc.. The
+data columns MUST be in that order as well. Category Group, Calendar
 Group, Numeric Aggregate.
 }
 \examples{

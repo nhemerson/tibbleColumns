@@ -10,7 +10,7 @@ prop_column_group(df, group)
 \item{df, group}{a dataframe and a group column name}
 }
 \description{
-Groups one column, adds a column for count of each group 
+Groups one column, adds a column for count of each group
 and adds a column for proportion of total based on count
 }
 \examples{

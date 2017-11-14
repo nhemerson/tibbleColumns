@@ -4,13 +4,15 @@
 \alias{tibble_out}
 \title{Tibble a data frame state within a pipe series}
 \usage{
-tibble_out(df, name)
+tibble_out(df, name, suppress = FALSE)
 }
 \arguments{
 \item{df, name}{a data frame and a name for created tibble object}
+
+\item{suppress}{prevents the function from creating the tibble in the parent environment}
 }
 \description{
-Create a tibble for the state of a data frame within a pipe series and 
+Create a tibble for the state of a data frame within a pipe series and
 assign it as an object to the global environment.
 }
 \examples{

@@ -10,8 +10,8 @@ ttest_tibble(df1, df2)
 \item{df1, df2}{two tibble dataframes}
 }
 \description{
-Allows to pass a tibble data_frame to the base R t.test 
-function over two numeric columns. Then extracts the output 
+Allows to pass a tibble data_frame to the base R t.test
+function over two numeric columns. Then extracts the output
 statistics and outputs a tibble.
 }
 \examples{
