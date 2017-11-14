@@ -198,7 +198,7 @@ tbl_module <- function(df,fun, name){
 
 #' Get a list of groups in certain column
 #'
-#' Designate a column of and get a single column listing the groups in that column.
+#' Designate a column and get a single column listing the groups in that column.
 #' @param df,group a data frame and a column to get group list
 #' @import tidyverse
 #' @export tbl_lookup

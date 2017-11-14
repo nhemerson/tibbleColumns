@@ -10,7 +10,7 @@ tbl_lookup(df, group)
 \item{df, group}{a data frame and a column to get group list}
 }
 \description{
-Designate a column of and get a single column listing the groups in that column.
+Designate a column and get a single column listing the groups in that column.
 }
 \examples{
 mtcars \%>\% tbl_out("cars") \%>\% tbl_module(filter(.,hp > 150),"fastCars") \%>\% tbl_lookup(cyl) \%>\% tbl_out("cylList")
