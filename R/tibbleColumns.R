@@ -209,3 +209,18 @@ tbl_lookup <- function(df,group){
   group <- enquo(group)
   df %>% count(!!group) %>% select(-n)
 }
+
+
+#' Replace all na's in data frame with a zero
+#'
+#' Replace NA's with a zero for dataframes
+#' @param df a data frame
+#' @import tidyverse
+#' @export replace_all_na
+#' @examples 
+#' mtcars %>% tbl_out("cars") %>% sjmisc::set_na(na = 0) %>% replace_all_na()
+
+replace_all_na <- function(df){
+  df[is.na(df)] <- 0
+  df
+}
