@@ -213,14 +213,19 @@ tbl_lookup <- function(df,group){
 
 #' Replace all na's in data frame with a zero
 #'
-#' Replace NA's with a zero for dataframes
-#' @param df a data frame
+#' Replace NA's with a zero for dataframes. Defaults with a 0 unless something else typed.
+#' @param df,replace_with a data frame and what to replace with
 #' @import tidyverse
 #' @export replace_all_na
 #' @examples 
 #' mtcars %>% tbl_out("cars") %>% sjmisc::set_na(na = 0) %>% replace_all_na()
 
-replace_all_na <- function(df){
-  df[is.na(df)] <- 0
-  df
+replace_all_na <- function(df,replace_with = NULL){
+  if(is.null(replace_with)){
+    df[is.na(df)] <- 0
+    df
+  }else{
+    df[is.na(df)] <- replace_with
+    df
+  }
 }

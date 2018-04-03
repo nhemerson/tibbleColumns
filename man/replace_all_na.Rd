@@ -4,13 +4,13 @@
 \alias{replace_all_na}
 \title{Replace all na's in data frame with a zero}
 \usage{
-replace_all_na(df)
+replace_all_na(df, replace_with = NULL)
 }
 \arguments{
-\item{df}{a data frame}
+\item{df, replace_with}{a data frame and what to replace with}
 }
 \description{
-Replace NA's with a zero for dataframes
+Replace NA's with a zero for dataframes. Defaults with a 0 unless something else typed.
 }
 \examples{
 mtcars \%>\% tbl_out("cars") \%>\% sjmisc::set_na(na = 0) \%>\% replace_all_na()
