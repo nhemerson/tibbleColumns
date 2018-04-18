@@ -104,6 +104,8 @@ change_XoX_column <- function(df, col1, col2, XoX) {
   col1 <- enquo(col1)
   col2 <- enquo(col2)
   
+  df <- select(df,!!col1,!!col2)
+  
   xox_col <- paste0("Change_", quo_name(XoX))
   
   df %>% mutate(!!xox_col := round(((!!col2) - (!!col1))/(!!col1)*100,3))
