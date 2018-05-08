@@ -231,3 +231,25 @@ replace_all_na <- function(df,replace_with = NULL){
     df
   }
 }
+
+
+#' New binary numeric column mirroring logical column
+#'
+#' Look at a logi cal TRUE FALSE column and make new column with binary represenation
+#' @param df,col a data frame and logical TRUE FALSE colum to change to binary
+#' @import tidyverse
+#' @export tbl_bool_to_binary
+#' @examples 
+#' iris %>% mutate(Setosa = str_detect(.$Species, "setosa")) %>% tbl_bool_to_binary(.,Setosa)
+
+bool_to_binary <- function(df,col){
+col <- enquo(col)
+#col <- paste0(quo_name(col))
+
+col2 <- paste0(quo_name(col),"_Binary")
+
+df %>% mutate(!!col2 := case_when(
+  !!col == TRUE ~ 1,
+  !!col == FALSE ~ 0
+))
+} 

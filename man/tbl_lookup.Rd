@@ -4,10 +4,10 @@
 \alias{tbl_lookup}
 \title{Get a list of groups in certain column}
 \usage{
-tbl_lookup(df, group)
+tbl_lookup(df, ...)
 }
 \arguments{
-\item{df, group}{a data frame and a column to get group list}
+\item{df, ...}{a data frame and a column or columns to get group list}
 }
 \description{
 Designate a column and get a single column listing the groups in that column.
