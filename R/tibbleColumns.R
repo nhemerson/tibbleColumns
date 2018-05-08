@@ -238,7 +238,7 @@ replace_all_na <- function(df,replace_with = NULL){
 #' Look at a logi cal TRUE FALSE column and make new column with binary represenation
 #' @param df,col a data frame and logical TRUE FALSE colum to change to binary
 #' @import tidyverse
-#' @export tbl_bool_to_binary
+#' @export bool_to_binary
 #' @examples 
 #' iris %>% mutate(Setosa = str_detect(.$Species, "setosa")) %>% tbl_bool_to_binary(.,Setosa)
 
