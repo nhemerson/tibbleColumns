@@ -159,7 +159,7 @@ tibble_out <- function(df,name,suppress=FALSE){
   nam <<- tbl_df(df)
   assign(name,nam,envir=.GlobalEnv)
   rm(nam, envir = .GlobalEnv)
-
+  df
 }
 
 #' Shorter alias for tibble_out fucnction - Tibble a data frame state within a pipe series
@@ -177,7 +177,7 @@ tbl_out <- function(df,name,suppress=FALSE){
   nam <<- tbl_df(df)
   assign(name,nam,envir=.GlobalEnv)
   rm(nam, envir = .GlobalEnv)
- 
+  df
 }
 
 
@@ -240,7 +240,7 @@ replace_all_na <- function(df,replace_with = NULL){
 #' @import tidyverse
 #' @export bool_to_binary
 #' @examples 
-#' iris %>% mutate(Setosa = str_detect(.$Species, "setosa")) %>% tbl_bool_to_binary(.,Setosa)
+#' iris %>% mutate(Setosa = str_detect(.$Species, "setosa")) %>% bool_to_binary(.,Setosa)
 
 bool_to_binary <- function(df,col){
 col <- enquo(col)
