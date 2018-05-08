@@ -159,7 +159,7 @@ tibble_out <- function(df,name,suppress=FALSE){
   nam <<- tbl_df(df)
   assign(name,nam,envir=.GlobalEnv)
   rm(nam, envir = .GlobalEnv)
-  tbl_df(df)
+
 }
 
 #' Shorter alias for tibble_out fucnction - Tibble a data frame state within a pipe series
@@ -177,7 +177,7 @@ tbl_out <- function(df,name,suppress=FALSE){
   nam <<- tbl_df(df)
   assign(name,nam,envir=.GlobalEnv)
   rm(nam, envir = .GlobalEnv)
-  tbl_df(df)
+ 
 }
 
 
@@ -201,15 +201,15 @@ tbl_module <- function(df,fun, name){
 #' Get a list of groups in certain column
 #'
 #' Designate a column and get a single column listing the groups in that column.
-#' @param df,group a data frame and a column to get group list
+#' @param df,... a data frame and a column or columns to get group list
 #' @import tidyverse
 #' @export tbl_lookup
 #' @examples 
 #' mtcars %>% tbl_out("cars") %>% tbl_module(filter(.,hp > 150),"fastCars") %>% tbl_lookup(cyl) %>% tbl_out("cylList")
 
-tbl_lookup <- function(df,group){
-  group <- enquo(group)
-  df %>% count(!!group) %>% select(-n)
+tbl_lookup <- function(df,...){
+  group_var <- quos(...)
+  df %>% count(!!!group_var) %>% select(-n)
 }
 
 
