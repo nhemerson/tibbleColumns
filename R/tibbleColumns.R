@@ -67,24 +67,6 @@ prop_column_group <- function(df, group){
 
 #' General Proportion Column
 #'
-#' This function creates a proportion column
-#' @param df,col a data frame and a column name
-#' @export prop_column
-#' @examples
-#' mtcars %>% count(cyl, disp) %>% arrange(desc(n)) %>% prop_column(n)
-
-prop_column <- function(df, col) {
-  
-  col <- enquo(col)
-  prop_col <- paste0("Perc_", quo_name(col))
-  
-  df %>% mutate(!!prop_col := round((!!col)/(sum(!!col))*100,3))
-  
-}
-
-
-#' General Proportion Column
-#'
 #' This function creates a proportion column based on a column
 #' specified.
 #' @param df,col a data frame and a column name

@@ -10,7 +10,7 @@ lag_col(df, col, replace_na_with = NULL)
 \item{df, col, replace_na_with}{a data frame a column and what to replace NAs with}
 }
 \description{
-Select a column to have the lag row of be noted in a mew mutated column
+Select a column to have the lag row of be noted in a new mutated column
 }
 \examples{
 mtcars \%>\% lead_col(cyl,0)

@@ -5,21 +5,14 @@
 \title{General Proportion Column}
 \usage{
 prop_column(df, col)
-
-prop_column(df, col)
 }
 \arguments{
 \item{df, col}{a data frame and a column name}
-
-\item{df, col}{a data frame and a column name}
 }
 \description{
-This function creates a proportion column
-
 This function creates a proportion column based on a column
 specified.
 }
 \examples{
-mtcars \%>\% count(cyl, disp) \%>\% arrange(desc(n)) \%>\% prop_column(n)
 mtcars \%>\% count(cyl, disp) \%>\% arrange(desc(n)) \%>\% prop_column(n)
 }
