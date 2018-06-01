@@ -290,7 +290,7 @@ bool_to_binary <- function(df,col,remove_bool_col = FALSE){
 
 #' Created lead column based on anothwer
 #'
-#' Select a column to have the lead row of be noted in a mew mutated column
+#' Select a column to have the lead row of be noted in a new mutated column
 #' @param df,col,replace_na_with  a data frame a column and what to replace NAs with
 #' @import tidyverse
 #' @export lead_col
@@ -315,7 +315,7 @@ lead_col <- function(df,col, replace_na_with = NULL){
 
 #' Created lag column based on anothwer
 #'
-#' Select a column to have the lag row of be noted in a mew mutated column
+#' Select a column to have the lag row of be noted in a new mutated column
 #' @param df,col,replace_na_with  a data frame a column and what to replace NAs with
 #' @import tidyverse
 #' @export lag_col
