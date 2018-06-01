@@ -3,6 +3,8 @@
 export(bool_to_binary)
 export(change_XoX_column)
 export(change_XoX_column_group)
+export(lag_col)
+export(lead_col)
 export(lm_summary_tibble)
 export(prop_column)
 export(prop_column_group)

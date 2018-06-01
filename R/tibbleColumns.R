@@ -15,6 +15,7 @@ lm_summary_tibble <- function(df, dep){
   l <- lm(paste0(quo_name(dep),"~."), data = df)
   ls <- summary(l)
   tidy(ls) %>% mutate(R2 = ls$r.squared)
+  
 }
 
 
@@ -30,6 +31,7 @@ lm_summary_tibble <- function(df, dep){
 #' ttest_tibble(t1$num,t2$num)
 
 ttest_tibble <- function(df1,df2){
+  
   df1 <- as.data.frame(df1)
   df2 <- as.data.frame(df2)
   ttest <- t.test(df1, df2)
@@ -41,6 +43,7 @@ ttest_tibble <- function(df1,df2){
     conf_int = paste(c(round(ttest$conf.int[[1]],4),round(ttest$conf.int[[2]],4)), collapse = " -> "),
     conf_level = attr(ttest$conf.int, "conf.level")
   )
+  
 }
 
 
@@ -54,8 +57,11 @@ ttest_tibble <- function(df1,df2){
 #' mtcars %>% prop_column_group(cyl)
 
 prop_column_group <- function(df, group){
+  
   group <- enquo(group)
+  
   df %>% count(!!group) %>% rename(Count = n) %>% mutate(Percent = round(Count/sum(.$Count) *100,3))
+  
 }
 
 
@@ -68,9 +74,12 @@ prop_column_group <- function(df, group){
 #' mtcars %>% count(cyl, disp) %>% arrange(desc(n)) %>% prop_column(n)
 
 prop_column <- function(df, col) {
+  
   col <- enquo(col)
   prop_col <- paste0("Perc_", quo_name(col))
+  
   df %>% mutate(!!prop_col := round((!!col)/(sum(!!col))*100,3))
+  
 }
 
 
@@ -85,9 +94,12 @@ prop_column <- function(df, col) {
 #' mtcars %>% count(cyl, disp) %>% arrange(desc(n)) %>% prop_column(n)
 
 prop_column <- function(df, col) {
+  
   col <- enquo(col)
   prop_col <- paste0("Perc_", quo_name(col))
+  
   df %>% mutate(!!prop_col := round((!!col)/(sum(!!col))*100,3))
+  
 }
 
 
@@ -101,6 +113,7 @@ prop_column <- function(df, col) {
 #' change_XoX_column(mtcars, drat, wt, "MoM")
 
 change_XoX_column <- function(df, col1, col2, XoX) {
+  
   col1 <- enquo(col1)
   col2 <- enquo(col2)
   
@@ -109,6 +122,7 @@ change_XoX_column <- function(df, col1, col2, XoX) {
   xox_col <- paste0("Change_", quo_name(XoX))
   
   df %>% mutate(!!xox_col := round(((!!col2) - (!!col1))/(!!col1)*100,3))
+  
 }
 
 
@@ -140,6 +154,7 @@ change_XoX_column_group <- function(df, col1, col2, XoX){
   df3 <- df2 %>% spread(V1, V2)
   
   df3 %>% select(!!col1, !!col2) %>% mutate(!!xox_col := ((!!col2) - (!!col1))/(!!col1)*100) %>% ungroup()
+  
 }
 
 
@@ -155,11 +170,13 @@ change_XoX_column_group <- function(df, col1, col2, XoX){
 #' mtcars %>% group_by(cyl) %>% prop_column_group(cyl) %>% tibble_out("grouped") %>% filter(Count >9)
 
 tibble_out <- function(df,name,suppress=FALSE){
+  
   if (suppress){return(df)}
   nam <<- tbl_df(df)
   assign(name,nam,envir=.GlobalEnv)
   rm(nam, envir = .GlobalEnv)
   df
+  
 }
 
 #' Shorter alias for tibble_out fucnction - Tibble a data frame state within a pipe series
@@ -173,11 +190,13 @@ tibble_out <- function(df,name,suppress=FALSE){
 #' mtcars %>% group_by(cyl) %>% prop_column_group(cyl) %>% tbl_out("grouped") %>% filter(Count >9)
 
 tbl_out <- function(df,name,suppress=FALSE){
+  
   if (suppress){return(df)}
   nam <<- tbl_df(df)
   assign(name,nam,envir=.GlobalEnv)
   rm(nam, envir = .GlobalEnv)
   df
+  
 }
 
 
@@ -192,10 +211,12 @@ tbl_out <- function(df,name,suppress=FALSE){
 #' mtcars %>% tbl_out("cars") %>% tbl_module(filter(.,hp > 150),"fastCars") %>% tbl_lookup(cyl) %>% tbl_out("cylList")
 
 tbl_module <- function(df,fun, name){
+  
   nam <<- fun
   assign(name,nam,envir=.GlobalEnv)
   rm(nam, envir = .GlobalEnv)
   tbl_df(df)
+  
 }
 
 #' Get a list of groups in certain column
@@ -208,8 +229,10 @@ tbl_module <- function(df,fun, name){
 #' mtcars %>% tbl_out("cars") %>% tbl_module(filter(.,hp > 150),"fastCars") %>% tbl_lookup(cyl) %>% tbl_out("cylList")
 
 tbl_lookup <- function(df,...){
+  
   group_var <- quos(...)
   df %>% count(!!!group_var) %>% select(-n)
+  
 }
 
 
@@ -223,6 +246,7 @@ tbl_lookup <- function(df,...){
 #' mtcars %>% tbl_out("cars") %>% sjmisc::set_na(na = 0) %>% replace_all_na()
 
 replace_all_na <- function(df,replace_with = NULL){
+  
   if(is.null(replace_with)){
     df[is.na(df)] <- 0
     df
@@ -230,26 +254,85 @@ replace_all_na <- function(df,replace_with = NULL){
     df[is.na(df)] <- replace_with
     df
   }
+  
 }
 
 
 #' New binary numeric column mirroring logical column
 #'
-#' Look at a logi cal TRUE FALSE column and make new column with binary represenation
+#' Look at a logical TRUE FALSE column and make new column with binary represenation
 #' @param df,col a data frame and logical TRUE FALSE colum to change to binary
 #' @import tidyverse
 #' @export bool_to_binary
 #' @examples 
 #' iris %>% mutate(Setosa = str_detect(.$Species, "setosa")) %>% bool_to_binary(.,Setosa)
 
-bool_to_binary <- function(df,col){
-col <- enquo(col)
-#col <- paste0(quo_name(col))
+bool_to_binary <- function(df,col,remove_bool_col = FALSE){
+  
+  col <- enquo(col)
+  col2 <- paste0(quo_name(col),"_Binary")
 
-col2 <- paste0(quo_name(col),"_Binary")
+  if(remove_bool_col == FALSE) {
+    df %>% mutate(!!col2 := case_when(
+      !!col == TRUE ~ 1,
+      !!col == FALSE ~ 0
+    ))
+  } else if(remove_bool_col == TRUE) {
+    df <- df %>% mutate(!!col2 := case_when(
+      !!col == TRUE ~ 1,
+      !!col == FALSE ~ 0
+    ))
+    df %>% select(-!!col)
+  }
 
-df %>% mutate(!!col2 := case_when(
-  !!col == TRUE ~ 1,
-  !!col == FALSE ~ 0
-))
 } 
+
+
+#' Created lead column based on anothwer
+#'
+#' Select a column to have the lead row of be noted in a mew mutated column
+#' @param df,col,replace_na_with  a data frame a column and what to replace NAs with
+#' @import tidyverse
+#' @export lead_col
+#' @examples 
+#' mtcars %>% lead_col(cyl,0)
+
+lead_col <- function(df,col, replace_na_with = NULL){
+  
+  col <- enquo(col)
+  col_name <- paste0(quo_name(col),"_Lead")
+  
+  if(is.null(replace_na_with)){
+    df %>% mutate(!!col_name := lead(!!col))
+  }else{
+    df <- df %>% mutate(!!col_name := lead(!!col))
+    df[is.na(df)] <- replace_na_with
+    df
+  }
+  
+}
+
+
+#' Created lag column based on anothwer
+#'
+#' Select a column to have the lag row of be noted in a mew mutated column
+#' @param df,col,replace_na_with  a data frame a column and what to replace NAs with
+#' @import tidyverse
+#' @export lag_col
+#' @examples 
+#' mtcars %>% lead_col(cyl,0)
+
+lag_col <- function(df,col, replace_na_with = NULL){
+  
+  col <- enquo(col)
+  col_name <- paste0(quo_name(col),"_Lag")
+  
+  if(is.null(replace_na_with)){
+    df %>% mutate(!!col_name := lag(!!col))
+  }else{
+    df <- df %>% mutate(!!col_name := lag(!!col))
+    df[is.na(df)] <- replace_na_with
+    df
+  }
+  
+}

@@ -4,14 +4,14 @@
 \alias{bool_to_binary}
 \title{New binary numeric column mirroring logical column}
 \usage{
-bool_to_binary(df, col)
+bool_to_binary(df, col, remove_bool_col = FALSE)
 }
 \arguments{
 \item{df, col}{a data frame and logical TRUE FALSE colum to change to binary}
 }
 \description{
-Look at a logi cal TRUE FALSE column and make new column with binary represenation
+Look at a logical TRUE FALSE column and make new column with binary represenation
 }
 \examples{
-iris \%>\% mutate(Setosa = str_detect(.$Species, "setosa")) \%>\% tbl_bool_to_binary(.,Setosa)
+iris \%>\% mutate(Setosa = str_detect(.$Species, "setosa")) \%>\% bool_to_binary(.,Setosa)
 }
