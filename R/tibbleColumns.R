@@ -343,4 +343,3 @@ file_choose <- function(type, sheet = NULL){
       data
     } 
   }
-}
