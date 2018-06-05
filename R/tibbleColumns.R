@@ -157,7 +157,7 @@ tibble_out <- function(df,name,suppress=FALSE){
   nam <<- tbl_df(df)
   assign(name,nam,envir=.GlobalEnv)
   rm(nam, envir = .GlobalEnv)
-  df
+  tbl_df(df)
   
 }
 
@@ -177,7 +177,7 @@ tbl_out <- function(df,name,suppress=FALSE){
   nam <<- tbl_df(df)
   assign(name,nam,envir=.GlobalEnv)
   rm(nam, envir = .GlobalEnv)
-  df
+  tbl_df(df)
   
 }
 
@@ -231,10 +231,10 @@ replace_all_na <- function(df,replace_with = NULL){
   
   if(is.null(replace_with)){
     df[is.na(df)] <- 0
-    df
+    tbl_df(df)
   }else{
     df[is.na(df)] <- replace_with
-    df
+    tbl_df(df)
   }
   
 }
@@ -264,7 +264,7 @@ bool_to_binary <- function(df,col,remove_bool_col = FALSE){
       !!col == TRUE ~ 1,
       !!col == FALSE ~ 0
     ))
-    df %>% select(-!!col)
+    df %>% select(-!!col) %>% tbl_df()
   }
 
 } 
@@ -285,11 +285,11 @@ lead_col <- function(df,col, replace_na_with = NULL){
   col_name <- paste0(quo_name(col),"_Lead")
   
   if(is.null(replace_na_with)){
-    df %>% mutate(!!col_name := lead(!!col))
+    df %>% mutate(!!col_name := lead(!!col)) %>% tbl_df()
   }else{
     df <- df %>% mutate(!!col_name := lead(!!col))
     df[is.na(df)] <- replace_na_with
-    df
+    tbl_df(df)
   }
   
 }
@@ -310,11 +310,11 @@ lag_col <- function(df,col, replace_na_with = NULL){
   col_name <- paste0(quo_name(col),"_Lag")
   
   if(is.null(replace_na_with)){
-    df %>% mutate(!!col_name := lag(!!col))
+    df %>% mutate(!!col_name := lag(!!col)) %>% tbl_df()
   }else{
     df <- df %>% mutate(!!col_name := lag(!!col))
     df[is.na(df)] <- replace_na_with
-    df
+    tbl_df(df)
   }
   
 }
