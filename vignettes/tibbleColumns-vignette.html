@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Hoyt Emerson" />
+
+<meta name="date" content="2018-06-05" />
+
+<title>tibbleColumns</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">tibbleColumns</h1>
+<h4 class="author"><em>Hoyt Emerson</em></h4>
+<h4 class="date"><em>2018-06-05</em></h4>
+
+
+
+<p>The tibbleColumns package is designed to offer some time saving functions that fix problems you didn’t even know you had within the tidyverse. It also introduces some advanced methods I’ve developed for advanced pipe sequences. Some examples of what this package offers are:</p>
+<ul>
+<li>Quick proportion columns</li>
+<li>Quick x_o_x columns for MoM, YoY etc.</li>
+<li>Perform t-tests with tibbles instead of coverting to data.frame</li>
+<li>Get a nice lm summary tibble a la broom package</li>
+<li>“Tibble Out” the current state of a pipe sequence to your global environment</li>
+<li>Plug in a “Tibble Module” to manipulate data outside the pipe sequence</li>
+</ul>
+<p><strong>NOTE ON FORMATTING:</strong> You’ll notice I am not breaking the line at the end of each pipe, as Hadley prefers to do. That is because I’ve started to make my code more horizontal and, through pipe programming, write my structure more as a sentence. The goal of the tibbleColumns package is meant to keep you within the pipe sequence and write code as quickly as possible without having to start a new line. See more on this concept of “Block Coding” at my blog post <a href="https://hoytemerson.wordpress.com/2017/11/08/tidyverse-block-coding-concepts/">here</a>.</p>
+<div id="proportion-columns" class="section level2">
+<h2>Proportion Columns</h2>
+<p>This entire package started when I realized that creating a proportion column in R was not a simple and easy thing for tibbles. I was frustrated that Excel was able to do something better than R so I decided to do something about it.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#prop_column_group</span>
+mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">prop_column_group</span>(cyl)
+<span class="co">#&gt; # A tibble: 3 x 3</span>
+<span class="co">#&gt;     cyl Count Percent</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt; 1  4.00    11    34.4</span>
+<span class="co">#&gt; 2  6.00     7    21.9</span>
+<span class="co">#&gt; 3  8.00    14    43.8</span>
+
+<span class="co">#prop_column</span>
+mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">count</span>(cyl, mpg) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">prop_column</span>(n)
+<span class="co">#&gt; # A tibble: 27 x 4</span>
+<span class="co">#&gt;      cyl   mpg     n Perc_n</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt;</span>
+<span class="co">#&gt;  1  4.00  21.4     1   3.12</span>
+<span class="co">#&gt;  2  4.00  21.5     1   3.12</span>
+<span class="co">#&gt;  3  4.00  22.8     2   6.25</span>
+<span class="co">#&gt;  4  4.00  24.4     1   3.12</span>
+<span class="co">#&gt;  5  4.00  26.0     1   3.12</span>
+<span class="co">#&gt;  6  4.00  27.3     1   3.12</span>
+<span class="co">#&gt;  7  4.00  30.4     2   6.25</span>
+<span class="co">#&gt;  8  4.00  32.4     1   3.12</span>
+<span class="co">#&gt;  9  4.00  33.9     1   3.12</span>
+<span class="co">#&gt; 10  6.00  17.8     1   3.12</span>
+<span class="co">#&gt; # ... with 17 more rows</span></code></pre></div>
+</div>
+<div id="xox-columns" class="section level2">
+<h2>XoX Columns</h2>
+<p>There are two particular functios in the tibbleColumns package that create either a column representing the percentage change from one number to another or an entirely new tibble with a group, number and percentage change.</p>
+<p>The <strong>change_XoX_column</strong> creates a single column that calculates the percentage of change between the vectors in two other columns. These columns need to be organized from left to right. Meaning, column of prior month data to the left of a column for current month.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#change_XoX_column</span>
+tc &lt;-<span class="st"> </span><span class="kw">tibble</span>(
+  <span class="dt">Month =</span> <span class="kw">c</span>(<span class="st">&quot;Jan&quot;</span>, <span class="st">&quot;Dec&quot;</span>),
+  <span class="dt">Users =</span> <span class="kw">c</span>(<span class="dv">102</span>, <span class="dv">909</span>)
+)
+
+tc <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">spread</span>(Month, Users) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">change_XoX_column</span>(Dec, Jan, <span class="st">&quot;MoM&quot;</span>)
+<span class="co">#&gt; # A tibble: 1 x 3</span>
+<span class="co">#&gt;     Dec   Jan Change_MoM</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt; 1   909   102      -88.8</span></code></pre></div>
+<p>The <strong>change_XoX_column_group</strong> will simply look at an entire data set and do all the above coding for you along with adding a group column as well.</p>
+<p>So let’s say you want to find out the MoM change in revenue by device from our hypothetical data set. The function will do that very quickly:</p>
+<p><em>NOTE: For this function you need to select certain columns of the data in a certain order. The columns also need to be specific data types. The order goes Group (character), Date (character), Aggregate Number (numeric)</em></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#change_XoX_column_group</span>
+tcg &lt;-<span class="st"> </span><span class="kw">tibble</span>(
+  <span class="dt">Month =</span> <span class="kw">c</span>(<span class="st">&quot;Jan&quot;</span>, <span class="st">&quot;Jan&quot;</span>,<span class="st">&quot;Dec&quot;</span>, <span class="st">&quot;Dec&quot;</span>),
+  <span class="dt">Type =</span> <span class="kw">c</span>(<span class="st">&quot;Red&quot;</span>, <span class="st">&quot;Blue&quot;</span>, <span class="st">&quot;Red&quot;</span>, <span class="st">&quot;Blue&quot;</span>),
+  <span class="dt">Users =</span> <span class="kw">c</span>(<span class="dv">102</span>, <span class="dv">909</span>, <span class="dv">201</span>, <span class="dv">479</span>)
+)
+
+tcg <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(Type, Month, Users) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">change_XoX_column_group</span>(Dec, Jan, <span class="st">&quot;MoM&quot;</span>)
+<span class="co">#&gt; Adding missing grouping variables: `Type`</span>
+<span class="co">#&gt; # A tibble: 2 x 4</span>
+<span class="co">#&gt;   Type    Dec   Jan Change_MoM</span>
+<span class="co">#&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 Blue    479   909       89.8</span>
+<span class="co">#&gt; 2 Red     201   102      -49.3</span></code></pre></div>
+</div>
+<div id="t-test" class="section level2">
+<h2>T-test</h2>
+<p>The tibble interacts poorly with base stat functions like t.test(). Instead of just complaining about how data_frame() wasn’t recognized by the base function, I decided to create a wrapper function that simply does all the dirty work for you. So you can now pass two tibbles to this function and it will return a nice tibble summary of your t-test.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#testoutput</span>
+t1 &lt;-<span class="st"> </span><span class="kw">tibble</span>(
+    <span class="dt">type =</span> <span class="kw">c</span>(<span class="st">&quot;Blue&quot;</span>, <span class="st">&quot;Blue&quot;</span>, <span class="st">&quot;Blue&quot;</span>, <span class="st">&quot;Blue&quot;</span>),
+    <span class="dt">num =</span> <span class="kw">runif</span>(<span class="dv">4</span>,<span class="dv">0</span>,<span class="dv">5</span>)
+  )
+
+t2 &lt;-<span class="st"> </span><span class="kw">tibble</span>(
+  <span class="dt">type =</span> <span class="kw">c</span>(<span class="st">&quot;Red&quot;</span>,<span class="st">&quot;Red&quot;</span>, <span class="st">&quot;Red&quot;</span>, <span class="st">&quot;Red&quot;</span>),
+  <span class="dt">num =</span> <span class="kw">runif</span>(<span class="dv">4</span>,<span class="dv">0</span>,<span class="dv">5</span>)
+)
+
+<span class="kw">ttest_tibble</span>(t1<span class="op">$</span>num,t2<span class="op">$</span>num)
+<span class="co">#&gt; # A tibble: 1 x 5</span>
+<span class="co">#&gt;   t_stat    df p_value conf_int         conf_level</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt;</span>
+<span class="co">#&gt; 1   1.04  5.95   0.337 -1.7231 -&gt; 4.283      0.950</span></code></pre></div>
+</div>
+<div id="lead-and-lag-columns" class="section level2">
+<h2>Lead and Lag Columns</h2>
+<p>It’s common to want to compare previous and post values to a current value in a row. Dplyr contains the lag() and lead() functions but I’ve wrapped those along with mutate() to make a couple nifty column functions.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#create a new column with lead values</span>
+mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(mpg,cyl) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">lead_col</span>(cyl,<span class="dv">0</span>)
+<span class="co">#&gt; # A tibble: 32 x 3</span>
+<span class="co">#&gt;      mpg   cyl cyl_Lead</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt;  1  21.0  6.00     6.00</span>
+<span class="co">#&gt;  2  21.0  6.00     4.00</span>
+<span class="co">#&gt;  3  22.8  4.00     6.00</span>
+<span class="co">#&gt;  4  21.4  6.00     8.00</span>
+<span class="co">#&gt;  5  18.7  8.00     6.00</span>
+<span class="co">#&gt;  6  18.1  6.00     8.00</span>
+<span class="co">#&gt;  7  14.3  8.00     4.00</span>
+<span class="co">#&gt;  8  24.4  4.00     4.00</span>
+<span class="co">#&gt;  9  22.8  4.00     6.00</span>
+<span class="co">#&gt; 10  19.2  6.00     6.00</span>
+<span class="co">#&gt; # ... with 22 more rows</span>
+
+<span class="co">#create a new column with lag values</span>
+mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(mpg,cyl) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">lag_col</span>(cyl,<span class="dv">0</span>)
+<span class="co">#&gt; # A tibble: 32 x 3</span>
+<span class="co">#&gt;      mpg   cyl cyl_Lag</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt;  1  21.0  6.00    0   </span>
+<span class="co">#&gt;  2  21.0  6.00    6.00</span>
+<span class="co">#&gt;  3  22.8  4.00    6.00</span>
+<span class="co">#&gt;  4  21.4  6.00    4.00</span>
+<span class="co">#&gt;  5  18.7  8.00    6.00</span>
+<span class="co">#&gt;  6  18.1  6.00    8.00</span>
+<span class="co">#&gt;  7  14.3  8.00    6.00</span>
+<span class="co">#&gt;  8  24.4  4.00    8.00</span>
+<span class="co">#&gt;  9  22.8  4.00    4.00</span>
+<span class="co">#&gt; 10  19.2  6.00    4.00</span>
+<span class="co">#&gt; # ... with 22 more rows</span></code></pre></div>
+</div>
+<div id="tibble-out-and-tibble-module" class="section level2">
+<h2>Tibble Out and Tibble Module</h2>
+<p>Other than just wrapping existing tidyverse functions into new ones, I wanted to see if there was anything new I could offer the pipe ecosystem. After some sudden moments of inspiration I developed the <strong>tbl_out()</strong> and <strong>tbl_module()</strong> functions, respectively.</p>
+<p>the <strong>tbl_out()</strong> function, when used within a pipe sequence, will take the current state of the data frame in the pipe sequence and create it as an object in the global environment. It will then send that state back into the pipe sequence to go on and be manipulated further It, essentially, allows you to create multiple data frames that represent different states of manipulation in the pipe sequence.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#tibble out</span>
+mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rownames_to_column</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">Name =</span> rowname) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tbl_out</span>(<span class="st">&quot;cars&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(cyl,hp,mpg) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tbl_out</span>(<span class="st">&quot;cars1&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">Calc =</span> hp<span class="op">/</span>mpg) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tbl_out</span>(<span class="st">&quot;roundOut&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">lm_summary_tibble</span>(<span class="st">&quot;mpg&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tbl_out</span>(<span class="st">&quot;lmOut&quot;</span>)
+<span class="co">#&gt; # A tibble: 4 x 6</span>
+<span class="co">#&gt;   term        estimate std.error statistic            p.value    R2</span>
+<span class="co">#&gt;   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;              &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 (Intercept)  32.9       2.23       14.7  0.0000000000000102 0.814</span>
+<span class="co">#&gt; 2 cyl         - 1.93      0.507     - 3.81 0.000696           0.814</span>
+<span class="co">#&gt; 3 hp            0.0436    0.0229      1.91 0.0667             0.814</span>
+<span class="co">#&gt; 4 Calc        - 0.833     0.253     - 3.29 0.00273            0.814</span></code></pre></div>
+<p>The point of a <strong>tbl_module</strong> is to plug in a separate transformation within the pipe sequence that works outside the pipe and saves to your global environment. I find this especially convenient when I have date/time columns that I want to separate, change date on or get additional intervals of (via lubridate). Learn more about tbl_module at my blog post <a href="https://hoytemerson.wordpress.com/2018/02/17/tidyverse-advanced-tibble-modules/">here</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#tbl_module</span>
+mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tbl_out</span>(<span class="st">&quot;cars&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tbl_module</span>(<span class="kw">filter</span>(.,hp <span class="op">&gt;</span><span class="st"> </span><span class="dv">150</span>), <span class="st">&quot;fastCars&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tbl_lookup</span>(cyl) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tbl_out</span>(<span class="st">&quot;cylList&quot;</span>)
+<span class="co">#&gt; # A tibble: 3 x 1</span>
+<span class="co">#&gt;     cyl</span>
+<span class="co">#&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt; 1  4.00</span>
+<span class="co">#&gt; 2  6.00</span>
+<span class="co">#&gt; 3  8.00</span>
+
+<span class="co">#tbl_module date example</span>
+dateEx &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">date =</span> <span class="kw">c</span>(<span class="kw">Sys.Date</span>(),<span class="kw">Sys.Date</span>() <span class="op">-</span><span class="st"> </span><span class="dv">1</span>,<span class="kw">Sys.Date</span>() <span class="op">-</span><span class="st"> </span><span class="dv">3</span>), <span class="dt">num =</span> <span class="kw">rnorm</span>(<span class="dv">3</span>))
+
+dateEx <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tbl_module</span>(<span class="kw">select</span>(.,date),<span class="st">&quot;dateCol&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">separate</span>(date, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;year&quot;</span>,<span class="st">&quot;month&quot;</span>,<span class="st">&quot;day&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">bind_cols</span>(dateCol,.)
+<span class="co">#&gt; # A tibble: 3 x 5</span>
+<span class="co">#&gt;   date       year  month day      num</span>
+<span class="co">#&gt;   &lt;date&gt;     &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 2018-06-05 2018  06    05    -0.229</span>
+<span class="co">#&gt; 2 2018-06-04 2018  06    04    -0.398</span>
+<span class="co">#&gt; 3 2018-06-02 2018  06    02    -0.118</span></code></pre></div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
