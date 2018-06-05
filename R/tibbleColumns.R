@@ -322,7 +322,7 @@ lag_col <- function(df,col, replace_na_with = NULL){
 
 #' Tidy wrapper for file.choose function with doc format options
 #'
-#' Opens GUI to select specific file and read in as either csv or xls with a sheet option for xls file.
+#' Opens GUI to select specific file and read in as either csv or xls with a sheet option for xls file. 
 #' @param type  format type for read in document either csv or xls
 #' @import tidyverse
 #' @export file_choose
