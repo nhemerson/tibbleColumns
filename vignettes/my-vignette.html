@@ -12,7 +12,7 @@
 
 <meta name="author" content="Hoyt Emerson" />
 
-<meta name="date" content="2018-06-04" />
+<meta name="date" content="2018-06-05" />
 
 <title>tibbleColumns</title>
 
@@ -70,11 +70,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">tibbleColumns</h1>
 <h4 class="author"><em>Hoyt Emerson</em></h4>
-<h4 class="date"><em>2018-06-04</em></h4>
+<h4 class="date"><em>2018-06-05</em></h4>
 
 
 
-<p>The tibbleColumns package is designed to offer some time saving functions that fix problems you didn’t even know you had within the tidyverse. It also introduce some advanced methods I’ve developed to use in your pipe sequences. Some examples of functions this package offers is:</p>
+<p>The tibbleColumns package is designed to offer some time saving functions that fix problems you didn’t even know you had within the tidyverse. It also introduces some advanced methods I’ve developed for advanced pipe sequences. Some examples of what this package offers are:</p>
 <ul>
 <li>Quick proportion columns</li>
 <li>Quick x_o_x columns for MoM, YoY etc.</li>
@@ -83,6 +83,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>“Tibble Out” the current state of a pipe sequence to your global environment</li>
 <li>Plug in a “Tibble Module” to manipulate data outside the pipe sequence</li>
 </ul>
+<p><strong>NOTE ON FORMATTING:</strong> You’ll notice I am not brekaing the line at the end of each pipe, as Hadley prefers to do. That is because I’ve started to make my code more horizontal and, through pipe programming, write my structure more as a sentence. The goal of the tibbleColumns package is meant to keep you within the pipe sequence and write code as quickly as possible without having to start a new line. See more on this concept of “Block Coding” at my blog post <a href="https://hoytemerson.wordpress.com/2017/11/08/tidyverse-block-coding-concepts/">here</a>.</p>
 <div id="proportion-columns" class="section level2">
 <h2>Proportion Columns</h2>
 <p>This entire package started when I realized that creating a proportion column in R was not a simple and easy thing for tibbles. I was frustrated that Excel was able to do something better than R so I decided to do something about it.</p>
@@ -161,183 +162,80 @@ t2 &lt;-<span class="st"> </span><span class="kw">tibble</span>(
 
 <span class="kw">ttest_tibble</span>(t1<span class="op">$</span>num,t2<span class="op">$</span>num)
 <span class="co">#&gt; # A tibble: 1 x 5</span>
-<span class="co">#&gt;   t_stat    df p_value conf_int          conf_level</span>
-<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                  &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 -0.304  5.93   0.772 -2.6743 -&gt; 2.0854      0.950</span></code></pre></div>
+<span class="co">#&gt;   t_stat    df p_value conf_int         conf_level</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 -0.337  4.77   0.750 -2.9679 -&gt; 2.288      0.950</span></code></pre></div>
 </div>
-<div id="section" class="section level2">
-<h2></h2>
-<p>You can write math expressions, e.g. <span class="math inline">\(Y = X\beta + \epsilon\)</span>, footnotes<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>, and tables, e.g. using <code>knitr::kable()</code>.</p>
-<table>
-<thead>
-<tr class="header">
-<th></th>
-<th align="right">mpg</th>
-<th align="right">cyl</th>
-<th align="right">disp</th>
-<th align="right">hp</th>
-<th align="right">drat</th>
-<th align="right">wt</th>
-<th align="right">qsec</th>
-<th align="right">vs</th>
-<th align="right">am</th>
-<th align="right">gear</th>
-<th align="right">carb</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Mazda RX4</td>
-<td align="right">21.0</td>
-<td align="right">6</td>
-<td align="right">160.0</td>
-<td align="right">110</td>
-<td align="right">3.90</td>
-<td align="right">2.620</td>
-<td align="right">16.46</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td>Mazda RX4 Wag</td>
-<td align="right">21.0</td>
-<td align="right">6</td>
-<td align="right">160.0</td>
-<td align="right">110</td>
-<td align="right">3.90</td>
-<td align="right">2.875</td>
-<td align="right">17.02</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">4</td>
-</tr>
-<tr class="odd">
-<td>Datsun 710</td>
-<td align="right">22.8</td>
-<td align="right">4</td>
-<td align="right">108.0</td>
-<td align="right">93</td>
-<td align="right">3.85</td>
-<td align="right">2.320</td>
-<td align="right">18.61</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td>Hornet 4 Drive</td>
-<td align="right">21.4</td>
-<td align="right">6</td>
-<td align="right">258.0</td>
-<td align="right">110</td>
-<td align="right">3.08</td>
-<td align="right">3.215</td>
-<td align="right">19.44</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">3</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td>Hornet Sportabout</td>
-<td align="right">18.7</td>
-<td align="right">8</td>
-<td align="right">360.0</td>
-<td align="right">175</td>
-<td align="right">3.15</td>
-<td align="right">3.440</td>
-<td align="right">17.02</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">3</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td>Valiant</td>
-<td align="right">18.1</td>
-<td align="right">6</td>
-<td align="right">225.0</td>
-<td align="right">105</td>
-<td align="right">2.76</td>
-<td align="right">3.460</td>
-<td align="right">20.22</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">3</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td>Duster 360</td>
-<td align="right">14.3</td>
-<td align="right">8</td>
-<td align="right">360.0</td>
-<td align="right">245</td>
-<td align="right">3.21</td>
-<td align="right">3.570</td>
-<td align="right">15.84</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">3</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td>Merc 240D</td>
-<td align="right">24.4</td>
-<td align="right">4</td>
-<td align="right">146.7</td>
-<td align="right">62</td>
-<td align="right">3.69</td>
-<td align="right">3.190</td>
-<td align="right">20.00</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td>Merc 230</td>
-<td align="right">22.8</td>
-<td align="right">4</td>
-<td align="right">140.8</td>
-<td align="right">95</td>
-<td align="right">3.92</td>
-<td align="right">3.150</td>
-<td align="right">22.90</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td>Merc 280</td>
-<td align="right">19.2</td>
-<td align="right">6</td>
-<td align="right">167.6</td>
-<td align="right">123</td>
-<td align="right">3.92</td>
-<td align="right">3.440</td>
-<td align="right">18.30</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">4</td>
-</tr>
-</tbody>
-</table>
-<p>Also a quote using <code>&gt;</code>:</p>
-<blockquote>
-<p>“He who gives up [code] safety for [code] speed deserves neither.” (<a href="https://twitter.com/hadleywickham/status/504368538874703872">via</a>)</p>
-</blockquote>
+<div id="lead-and-lag-columns" class="section level2">
+<h2>Lead and Lag Columns</h2>
+<p>It’s common to want to compare previous and post values to a current value in a row. Dplyr contains the lag() and lead() functions but I’ve wrapped those along with mutate() to make a couple nifty column functions.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#create a new column with lead values</span>
+mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(mpg,cyl) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">lead_col</span>(cyl,<span class="dv">0</span>)
+<span class="co">#&gt; # A tibble: 32 x 3</span>
+<span class="co">#&gt;      mpg   cyl cyl_Lead</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt;  1  21.0  6.00     6.00</span>
+<span class="co">#&gt;  2  21.0  6.00     4.00</span>
+<span class="co">#&gt;  3  22.8  4.00     6.00</span>
+<span class="co">#&gt;  4  21.4  6.00     8.00</span>
+<span class="co">#&gt;  5  18.7  8.00     6.00</span>
+<span class="co">#&gt;  6  18.1  6.00     8.00</span>
+<span class="co">#&gt;  7  14.3  8.00     4.00</span>
+<span class="co">#&gt;  8  24.4  4.00     4.00</span>
+<span class="co">#&gt;  9  22.8  4.00     6.00</span>
+<span class="co">#&gt; 10  19.2  6.00     6.00</span>
+<span class="co">#&gt; # ... with 22 more rows</span>
+
+<span class="co">#create a new column with lag values</span>
+mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(mpg,cyl) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">lag_col</span>(cyl,<span class="dv">0</span>)
+<span class="co">#&gt; # A tibble: 32 x 3</span>
+<span class="co">#&gt;      mpg   cyl cyl_Lag</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt;  1  21.0  6.00    0   </span>
+<span class="co">#&gt;  2  21.0  6.00    6.00</span>
+<span class="co">#&gt;  3  22.8  4.00    6.00</span>
+<span class="co">#&gt;  4  21.4  6.00    4.00</span>
+<span class="co">#&gt;  5  18.7  8.00    6.00</span>
+<span class="co">#&gt;  6  18.1  6.00    8.00</span>
+<span class="co">#&gt;  7  14.3  8.00    6.00</span>
+<span class="co">#&gt;  8  24.4  4.00    8.00</span>
+<span class="co">#&gt;  9  22.8  4.00    4.00</span>
+<span class="co">#&gt; 10  19.2  6.00    4.00</span>
+<span class="co">#&gt; # ... with 22 more rows</span></code></pre></div>
 </div>
-<div class="footnotes">
-<hr />
-<ol>
-<li id="fn1"><p>A footnote here.<a href="#fnref1">↩</a></p></li>
-</ol>
+<div id="tibble-out-and-tibble-module" class="section level2">
+<h2>Tibble Out and Tibble Module</h2>
+<p>Other than just wrapping existing tidyverse functions into new ones, I wanted to see if there was anything new I could offer the pipe ecosystem. After some sudden moments of inspiration I developed the <strong>tbl_out()</strong> and <strong>tbl_module()</strong> functions, respectively.</p>
+<p>the <strong>tbl_out()</strong> function, when used within a pipe sequence, will take the current state of the data frame in the pipe sequence and create it as an object in the global environment. It will then send that state back into the pipe sequence to go on and be manipulated further It, essentially, allows you to create multiple data frames that represent different states of manipulation in the pipe sequence.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#tibble out</span>
+mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rownames_to_column</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">Name =</span> rowname) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tbl_out</span>(<span class="st">&quot;cars&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(cyl,hp,mpg) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tbl_out</span>(<span class="st">&quot;cars1&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">Calc =</span> hp<span class="op">/</span>mpg) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tbl_out</span>(<span class="st">&quot;roundOut&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">lm_summary_tibble</span>(<span class="st">&quot;mpg&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tbl_out</span>(<span class="st">&quot;lmOut&quot;</span>)
+<span class="co">#&gt; # A tibble: 4 x 6</span>
+<span class="co">#&gt;   term        estimate std.error statistic            p.value    R2</span>
+<span class="co">#&gt;   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;              &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 (Intercept)  32.9       2.23       14.7  0.0000000000000102 0.814</span>
+<span class="co">#&gt; 2 cyl         - 1.93      0.507     - 3.81 0.000696           0.814</span>
+<span class="co">#&gt; 3 hp            0.0436    0.0229      1.91 0.0667             0.814</span>
+<span class="co">#&gt; 4 Calc        - 0.833     0.253     - 3.29 0.00273            0.814</span></code></pre></div>
+<p>The point of a <strong>tbl_module</strong> is to plug in a separate transformation within the pipe sequence that works outside the pipe and saves to your global environment. I find this especially convenient when I have date/time columns that I want to separate, change date on or get additional intervals of (via lubridate). Learn more about tbl_module at my blog post <a href="https://hoytemerson.wordpress.com/2018/02/17/tidyverse-advanced-tibble-modules/">here</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#tbl_module</span>
+mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tbl_out</span>(<span class="st">&quot;cars&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tbl_module</span>(<span class="kw">filter</span>(.,hp <span class="op">&gt;</span><span class="st"> </span><span class="dv">150</span>), <span class="st">&quot;fastCars&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tbl_lookup</span>(cyl) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tbl_out</span>(<span class="st">&quot;cylList&quot;</span>)
+<span class="co">#&gt; # A tibble: 3 x 1</span>
+<span class="co">#&gt;     cyl</span>
+<span class="co">#&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt; 1  4.00</span>
+<span class="co">#&gt; 2  6.00</span>
+<span class="co">#&gt; 3  8.00</span>
+
+<span class="co">#tbl_module date example</span>
+dateEx &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">date =</span> <span class="kw">c</span>(<span class="kw">Sys.Date</span>(),<span class="kw">Sys.Date</span>() <span class="op">-</span><span class="st"> </span><span class="dv">1</span>,<span class="kw">Sys.Date</span>() <span class="op">-</span><span class="st"> </span><span class="dv">3</span>), <span class="dt">num =</span> <span class="kw">rnorm</span>(<span class="dv">3</span>))
+
+dateEx <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tbl_module</span>(<span class="kw">select</span>(.,date),<span class="st">&quot;dateCol&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">separate</span>(date, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;year&quot;</span>,<span class="st">&quot;month&quot;</span>,<span class="st">&quot;day&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">bind_cols</span>(dateCol,.)
+<span class="co">#&gt; # A tibble: 3 x 5</span>
+<span class="co">#&gt;   date       year  month day      num</span>
+<span class="co">#&gt;   &lt;date&gt;     &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 2018-06-05 2018  06    05     0.120</span>
+<span class="co">#&gt; 2 2018-06-04 2018  06    04    -1.13 </span>
+<span class="co">#&gt; 3 2018-06-02 2018  06    02     1.17</span></code></pre></div>
 </div>
 
 

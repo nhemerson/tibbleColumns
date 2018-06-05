@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 library(tidyverse)
 library(tibbleColumns)
 ```
-The tibbleColumns package is designed to offer some time saving functions that fix problems you didn't even know you had within the tidyverse. It also introduce some advanced methods I've developed to use in your pipe sequences. Some examples of functions this package offers is:
+The tibbleColumns package is designed to offer some time saving functions that fix problems you didn't even know you had within the tidyverse. It also introduces some advanced methods I've developed for advanced pipe sequences. Some examples of what this package offers are:
 
 - Quick proportion columns
 - Quick x_o_x columns for MoM, YoY etc.
@@ -27,6 +27,8 @@ The tibbleColumns package is designed to offer some time saving functions that f
 - Get a nice lm summary tibble a la broom package
 - "Tibble Out" the current state of a pipe sequence to your global environment
 - Plug in a "Tibble Module" to manipulate data outside the pipe sequence
+
+**NOTE ON FORMATTING:** You'll notice I am not brekaing the line at the end of each pipe, as Hadley prefers to do. That is because I've started to make my code more horizontal and, through pipe programming, write my structure more as a sentence. The goal of the tibbleColumns package is meant to keep you within the pipe sequence and write code as quickly as possible without having to start a new line. See more on this concept of "Block Coding" at my blog post [here](https://hoytemerson.wordpress.com/2017/11/08/tidyverse-block-coding-concepts/).
 
 ## Proportion Columns
 
@@ -92,16 +94,37 @@ t2 <- tibble(
 ttest_tibble(t1$num,t2$num)
 ```
 
+## Lead and Lag Columns
 
-## 
+It's common to want to compare previous and post values to a current value in a row. Dplyr contains the lag() and lead() functions but I've wrapped those along with mutate() to make a couple nifty column functions.
 
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
+```{r, fig.show='hold'}
+#create a new column with lead values
+mtcars %>% select(mpg,cyl) %>% lead_col(cyl,0)
 
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
+#create a new column with lag values
+mtcars %>% select(mpg,cyl) %>% lag_col(cyl,0)
 ```
 
-Also a quote using `>`:
+## Tibble Out and Tibble Module
 
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
+Other than just wrapping existing tidyverse functions into new ones, I wanted to see if there was anything new I could offer the pipe ecosystem. After some sudden moments of inspiration I developed the **tbl_out()** and **tbl_module()** functions, respectively.
+
+the **tbl_out()** function, when used within a pipe sequence, will take the current state of the data frame in the pipe sequence and create it as an object in the global environment. It will then send that state back into the pipe sequence to go on and be manipulated further It, essentially, allows you to create multiple data frames that represent different states of manipulation in the pipe sequence.
+
+```{r, fig.show='hold'}
+#tibble out
+mtcars %>% rownames_to_column() %>% rename(Name = rowname) %>% tbl_out("cars") %>% select(cyl,hp,mpg) %>% tbl_out("cars1") %>% mutate(Calc = hp/mpg) %>% round(0) %>% tbl_out("roundOut") %>% lm_summary_tibble("mpg") %>% tbl_out("lmOut")
+```
+
+The point of a **tbl_module** is to plug in a separate transformation within the pipe sequence that works outside the pipe and saves to your global environment. I find this especially convenient when I have date/time columns that I want to separate, change date on or get additional intervals of (via lubridate). Learn more about tbl_module at my blog post [here](https://hoytemerson.wordpress.com/2018/02/17/tidyverse-advanced-tibble-modules/).
+
+```{r, fig.show='hold'}
+#tbl_module
+mtcars %>% tbl_out("cars") %>% tbl_module(filter(.,hp > 150), "fastCars") %>% tbl_lookup(cyl) %>% tbl_out("cylList")
+
+#tbl_module date example
+dateEx <- data_frame(date = c(Sys.Date(),Sys.Date() - 1,Sys.Date() - 3), num = rnorm(3))
+
+dateEx %>% tbl_module(select(.,date),"dateCol") %>% separate(date, into = c("year","month","day")) %>% bind_cols(dateCol,.)
+```
