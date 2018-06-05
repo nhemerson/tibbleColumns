@@ -161,7 +161,7 @@ tibble_out <- function(df,name,suppress=FALSE){
   
 }
 
-#' Shorter alias for tibble_out fucnction - Tibble a data frame state within a pipe series
+#' Shorter alias for tibble_out function - Tibble a data frame state within a pipe series
 #'
 #' Create a tibble for the state of a data frame within a pipe series and 
 #' assign it as an object to the global environment.
@@ -218,7 +218,7 @@ tbl_lookup <- function(df,...){
 }
 
 
-#' Replace all na's in data frame with a zero
+#' Replace all na's in tibble with a value
 #'
 #' Replace NA's with a zero for dataframes. Defaults with a 0 unless something else typed.
 #' @param df,replace_with a data frame and what to replace with
@@ -242,8 +242,8 @@ replace_all_na <- function(df,replace_with = NULL){
 
 #' New binary numeric column mirroring logical column
 #'
-#' Look at a logical TRUE FALSE column and make new column with binary represenation
-#' @param df,col a data frame and logical TRUE FALSE colum to change to binary
+#' Look at a logical TRUE FALSE column and make new column with binary representation.
+#' @param df,col a data frame and logical TRUE FALSE column to change to binary
 #' @import tidyverse
 #' @export bool_to_binary
 #' @examples 
@@ -270,9 +270,9 @@ bool_to_binary <- function(df,col,remove_bool_col = FALSE){
 } 
 
 
-#' Created lead column based on anothwer
+#' Create lead column based on another
 #'
-#' Select a column to have the lead row of be noted in a new mutated column
+#' Select a column to have the lead row of be noted in a new mutated column.
 #' @param df,col,replace_na_with  a data frame a column and what to replace NAs with
 #' @import tidyverse
 #' @export lead_col
@@ -295,9 +295,9 @@ lead_col <- function(df,col, replace_na_with = NULL){
 }
 
 
-#' Created lag column based on anothwer
+#' Create lag column based on another
 #'
-#' Select a column to have the lag row of be noted in a new mutated column
+#' Select a column to have the lag row of be noted in a new mutated column.
 #' @param df,col,replace_na_with  a data frame a column and what to replace NAs with
 #' @import tidyverse
 #' @export lag_col
@@ -322,7 +322,7 @@ lag_col <- function(df,col, replace_na_with = NULL){
 
 #' Tidy wrapper for file.choose function with doc format options
 #'
-#' Opens GUI to select specific file and read in as either csv or xls with a sheet option for xls file
+#' Opens GUI to select specific file and read in as either csv or xls with a sheet option for xls file.
 #' @param type  format type for read in document either csv or xls
 #' @import tidyverse
 #' @export file_choose
