@@ -7,10 +7,10 @@
 bool_to_binary(df, col, remove_bool_col = FALSE)
 }
 \arguments{
-\item{df, col}{a data frame and logical TRUE FALSE colum to change to binary}
+\item{df, col}{a data frame and logical TRUE FALSE column to change to binary}
 }
 \description{
-Look at a logical TRUE FALSE column and make new column with binary represenation
+Look at a logical TRUE FALSE column and make new column with binary representation.
 }
 \examples{
 iris \%>\% mutate(Setosa = str_detect(.$Species, "setosa")) \%>\% bool_to_binary(.,Setosa)

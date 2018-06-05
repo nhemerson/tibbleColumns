@@ -2,7 +2,7 @@
 % Please edit documentation in R/tibbleColumns.R
 \name{tbl_out}
 \alias{tbl_out}
-\title{Shorter alias for tibble_out fucnction - Tibble a data frame state within a pipe series}
+\title{Shorter alias for tibble_out function - Tibble a data frame state within a pipe series}
 \usage{
 tbl_out(df, name, suppress = FALSE)
 }

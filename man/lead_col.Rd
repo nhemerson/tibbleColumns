@@ -2,7 +2,7 @@
 % Please edit documentation in R/tibbleColumns.R
 \name{lead_col}
 \alias{lead_col}
-\title{Created lead column based on anothwer}
+\title{Create lead column based on another}
 \usage{
 lead_col(df, col, replace_na_with = NULL)
 }
@@ -10,7 +10,7 @@ lead_col(df, col, replace_na_with = NULL)
 \item{df, col, replace_na_with}{a data frame a column and what to replace NAs with}
 }
 \description{
-Select a column to have the lead row of be noted in a new mutated column
+Select a column to have the lead row of be noted in a new mutated column.
 }
 \examples{
 mtcars \%>\% lead_col(cyl,0)

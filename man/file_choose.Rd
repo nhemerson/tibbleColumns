@@ -10,7 +10,7 @@ file_choose(type, sheet = NULL)
 \item{type}{format type for read in document either csv or xls}
 }
 \description{
-Opens GUI to select specific file and read in as either csv or xls with a sheet option for xls file
+Opens GUI to select specific file and read in as either csv or xls with a sheet option for xls file.
 }
 \examples{
 file_choose("csv")

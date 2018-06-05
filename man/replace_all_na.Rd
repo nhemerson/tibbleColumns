@@ -2,7 +2,7 @@
 % Please edit documentation in R/tibbleColumns.R
 \name{replace_all_na}
 \alias{replace_all_na}
-\title{Replace all na's in data frame with a zero}
+\title{Replace all na's in tibble with a value}
 \usage{
 replace_all_na(df, replace_with = NULL)
 }
