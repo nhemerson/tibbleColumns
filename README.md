@@ -1,6 +1,6 @@
 # tibbleColumns
 Helpful tidyverse functions that output tibbles.
-Understand these functions more at: https://hoytemerson.wordpress.com/
+Understand these functions more at: https://hoytemerson.wordpress.com/ or walk through the vignette above.
 
 <b>How to install:</b>
 
