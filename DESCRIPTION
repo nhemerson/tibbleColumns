@@ -1,6 +1,6 @@
 Package: tibbleColumns
 Title: A useful set of functions that focus on tibble data frames.
-Version: 0.1
+Version: 0.2.1
 Authors@R: person("Hoyt", "Emerson", email = "nathan_h_emerson@homedepot.com", role = c("aut", "cre"))
 Description: Designed to offer some time saving functions that fix problems you didn't even know you had within the tidyverse. It also introduces some advanced methods I've developed for advanced pipe sequences.
 Depends: R (>= 3.4.1)
