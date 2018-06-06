@@ -13,5 +13,5 @@ tbl_lookup(df, ...)
 Designate a column and get a single column listing the groups in that column.
 }
 \examples{
-mtcars \%>\% tbl_out("cars") \%>\% tbl_module(filter(.,hp > 150),"fastCars") \%>\% tbl_lookup(cyl) \%>\% tbl_out("cylList")
+mtcars \%>\% tbl_out("cars") \%>\% tbl_lookup(cyl) \%>\% tbl_out("cylList")
 }

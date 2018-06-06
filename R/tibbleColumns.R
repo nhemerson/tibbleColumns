@@ -190,7 +190,7 @@ tbl_out <- function(df,name,suppress=FALSE){
 #' @import tidyverse
 #' @export tbl_module
 #' @examples 
-#' mtcars %>% tbl_out("cars") %>% tbl_module(filter(.,hp > 150),"fastCars") %>% tbl_lookup(cyl) %>% tbl_out("cylList")
+#' mtcars %>% tbl_out("cars") %>% tbl_module(filter(.,hp > 150),"fastCars") %>% tbl_lookup(cyl)
 
 tbl_module <- function(df,fun, name){
   
@@ -208,7 +208,7 @@ tbl_module <- function(df,fun, name){
 #' @import tidyverse
 #' @export tbl_lookup
 #' @examples 
-#' mtcars %>% tbl_out("cars") %>% tbl_module(filter(.,hp > 150),"fastCars") %>% tbl_lookup(cyl) %>% tbl_out("cylList")
+#' mtcars %>% tbl_out("cars") %>% tbl_lookup(cyl) %>% tbl_out("cylList")
 
 tbl_lookup <- function(df,...){
   

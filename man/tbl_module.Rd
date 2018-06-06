@@ -14,5 +14,5 @@ Run a function outside of the pipe sequence and create a tibble in global enviro
 while passing previous state of data frame through to the next pipe step.
 }
 \examples{
-mtcars \%>\% tbl_out("cars") \%>\% tbl_module(filter(.,hp > 150),"fastCars") \%>\% tbl_lookup(cyl) \%>\% tbl_out("cylList")
+mtcars \%>\% tbl_out("cars") \%>\% tbl_module(filter(.,hp > 150),"fastCars") \%>\% tbl_lookup(cyl)
 }
