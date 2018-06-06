@@ -12,7 +12,7 @@
 
 <meta name="author" content="Hoyt Emerson" />
 
-<meta name="date" content="2018-06-05" />
+<meta name="date" content="2018-06-06" />
 
 <title>tibbleColumns</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">tibbleColumns</h1>
 <h4 class="author"><em>Hoyt Emerson</em></h4>
-<h4 class="date"><em>2018-06-05</em></h4>
+<h4 class="date"><em>2018-06-06</em></h4>
 
 
 
@@ -162,9 +162,9 @@ t2 &lt;-<span class="st"> </span><span class="kw">tibble</span>(
 
 <span class="kw">ttest_tibble</span>(t1<span class="op">$</span>num,t2<span class="op">$</span>num)
 <span class="co">#&gt; # A tibble: 1 x 5</span>
-<span class="co">#&gt;   t_stat    df p_value conf_int         conf_level</span>
-<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt;</span>
-<span class="co">#&gt; 1   1.04  5.95   0.337 -1.7231 -&gt; 4.283      0.950</span></code></pre></div>
+<span class="co">#&gt;   t_stat    df p_value conf_int          conf_level</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                  &lt;dbl&gt;</span>
+<span class="co">#&gt; 1  -1.29  5.18   0.252 -3.0251 -&gt; 0.9897      0.950</span></code></pre></div>
 </div>
 <div id="lead-and-lag-columns" class="section level2">
 <h2>Lead and Lag Columns</h2>
@@ -217,6 +217,7 @@ mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">r
 <span class="co">#&gt; 3 hp            0.0436    0.0229      1.91 0.0667             0.814</span>
 <span class="co">#&gt; 4 Calc        - 0.833     0.253     - 3.29 0.00273            0.814</span></code></pre></div>
 <p>The point of a <strong>tbl_module</strong> is to plug in a separate transformation within the pipe sequence that works outside the pipe and saves to your global environment. I find this especially convenient when I have date/time columns that I want to separate, change date on or get additional intervals of (via lubridate). Learn more about tbl_module at my blog post <a href="https://hoytemerson.wordpress.com/2018/02/17/tidyverse-advanced-tibble-modules/">here</a>.</p>
+<p><em><strong>NOTE: The separate function has a ‘remove’ argument that will keep the original column after separating. This example is meant for easy clarity of what the tbl_module is doing</strong></em></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#tbl_module</span>
 mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tbl_out</span>(<span class="st">&quot;cars&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tbl_module</span>(<span class="kw">filter</span>(.,hp <span class="op">&gt;</span><span class="st"> </span><span class="dv">150</span>), <span class="st">&quot;fastCars&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tbl_lookup</span>(cyl) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tbl_out</span>(<span class="st">&quot;cylList&quot;</span>)
 <span class="co">#&gt; # A tibble: 3 x 1</span>
@@ -233,9 +234,9 @@ dateEx <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">t
 <span class="co">#&gt; # A tibble: 3 x 5</span>
 <span class="co">#&gt;   date       year  month day      num</span>
 <span class="co">#&gt;   &lt;date&gt;     &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 2018-06-05 2018  06    05    -0.229</span>
-<span class="co">#&gt; 2 2018-06-04 2018  06    04    -0.398</span>
-<span class="co">#&gt; 3 2018-06-02 2018  06    02    -0.118</span></code></pre></div>
+<span class="co">#&gt; 1 2018-06-06 2018  06    06    -0.471</span>
+<span class="co">#&gt; 2 2018-06-05 2018  06    05    -0.461</span>
+<span class="co">#&gt; 3 2018-06-03 2018  06    03     0.336</span></code></pre></div>
 </div>
 
 

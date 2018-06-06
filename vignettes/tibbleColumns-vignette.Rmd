@@ -119,6 +119,8 @@ mtcars %>% rownames_to_column() %>% rename(Name = rowname) %>% tbl_out("cars") %
 
 The point of a **tbl_module** is to plug in a separate transformation within the pipe sequence that works outside the pipe and saves to your global environment. I find this especially convenient when I have date/time columns that I want to separate, change date on or get additional intervals of (via lubridate). Learn more about tbl_module at my blog post [here](https://hoytemerson.wordpress.com/2018/02/17/tidyverse-advanced-tibble-modules/).
 
+<em>**NOTE: The separate function has a 'remove' argument that will keep the original column after separating. This example is meant for easy clarity of what the tbl_module is doing**</em>
+
 ```{r, fig.show='hold'}
 #tbl_module
 mtcars %>% tbl_out("cars") %>% tbl_module(filter(.,hp > 150), "fastCars") %>% tbl_lookup(cyl) %>% tbl_out("cylList")
