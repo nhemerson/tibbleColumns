@@ -165,20 +165,48 @@ tibble_out <- function(df,name,suppress=FALSE){
 #'
 #' Create a tibble for the state of a data frame within a pipe series and 
 #' assign it as an object to the global environment.
-#' @param df,name a data frame and a name for created tibble object
+#' @param df,name,suppress,env a data frame and a name for created tibble object with option to suppress or add environment as a string
 #' @import tidyverse
 #' @export tbl_out
 #' @examples 
 #' mtcars %>% group_by(cyl) %>% prop_column_group(cyl) %>% tbl_out("grouped") %>% filter(Count >9)
 
-tbl_out <- function(df,name,suppress=FALSE){
+tbl_out <- function(df,name,suppress=FALSE, env = NULL){
   
   if (suppress){return(df)}
-  nam <<- tbl_df(df)
-  assign(name,nam,envir=.GlobalEnv)
-  rm(nam, envir = .GlobalEnv)
-  tbl_df(df)
   
+  if(is.null(env)){
+    
+    nam <<- tbl_df(df)
+    assign(name,nam,envir=.GlobalEnv)
+    rm(nam, envir = .GlobalEnv)
+    tbl_df(df)
+    
+  } else if(!is.null(env)){
+     
+    
+    if(!is.environment(env)){
+      
+      envName <- new.env(parent = emptyenv())
+      nam <<- tbl_df(df)
+      assign(name,nam,envir= envName)
+      rm(nam, envir = .GlobalEnv)
+      assign(env,envName,envir=.GlobalEnv)
+      #rm(envName, envir = .GlobalEnv)
+      tbl_df(df)
+      
+    } else if(is.environment(env)){
+      
+      nam <<- tbl_df(df)
+      env <- .GlobalEnv[[env]]
+      assign(name,nam,envir=env)
+      rm(nam, envir = .GlobalEnv)
+      tbl_df(df)
+      
+    }
+    
+    
+  }
 }
 
 
@@ -342,4 +370,55 @@ file_choose <- function(type, sheet = NULL){
       data <- read_csv(raw)
       data
     } 
+}
+
+
+
+#' Bind data frames together by row based on a keyword
+#'
+#' Allows user to pass a keyword and an environment to bind all data frames in that
+#' environment with that keyword in the name by rows. 
+#' @param df,keyword,env  dataframe to take in current state of tibble keyword string and environment object to search in
+#' @import tidyverse
+#' @export bind_rows_keyword
+#' @examples 
+#' mtcars %>% tbl_df() %>% tbl_module(filter(.,hp < 00), "c1") %>% filter(hp > 200) %>% 
+#' tbl_out("c") %>% bind_rows_keyword("c")
+
+bind_rows_keyword <- function(df,keyword, env = NULL){
+  
+  
+  if(is.null(env)){
+    a <- ls(globalenv()) %>% tbl_df()
+    b <- a %>% filter(str_detect(.$value, keyword)) %>% unlist() %>% as.list()
+    
+    for(i in b){
+      if(exists("tib")){
+        tib <- tib
+        df <- get(i)
+        tib <- bind_rows(tib,df)
+      } else{
+        tib <- get(i)
+      }
+    }
+    
+    tib
+  } else if(!is.null(env)){
+    a <- ls(env) %>% tbl_df()
+    b <- a %>% filter(str_detect(.$value, keyword)) %>% unlist() %>% as.list()
+    
+    for(i in b){
+      if(exists("tib")){
+        tib <- tib
+        df <- get(i, env = env)
+        tib <- bind_rows(tib,df)
+      } else{
+        tib <- get(i,env = env)
+      }
+    }
+    
+    tib
   }
+  
+  
+}

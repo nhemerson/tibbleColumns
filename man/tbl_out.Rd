@@ -4,10 +4,10 @@
 \alias{tbl_out}
 \title{Shorter alias for tibble_out function - Tibble a data frame state within a pipe series}
 \usage{
-tbl_out(df, name, suppress = FALSE)
+tbl_out(df, name, suppress = FALSE, env = NULL)
 }
 \arguments{
-\item{df, name}{a data frame and a name for created tibble object}
+\item{df, name, suppress, env}{a data frame and a name for created tibble object with option to suppress or add environment as a string}
 }
 \description{
 Create a tibble for the state of a data frame within a pipe series and 
