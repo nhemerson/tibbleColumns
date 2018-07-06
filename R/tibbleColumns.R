@@ -259,8 +259,10 @@ replace_all_na <- function(df,replace_with = NULL){
   
   if(is.null(replace_with)){
     df[is.na(df)] <- 0
+    df
   }else{
     df[is.na(df)] <- replace_with
+    df
   }
   
 }
