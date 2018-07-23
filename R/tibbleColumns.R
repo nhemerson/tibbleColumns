@@ -185,7 +185,7 @@ tbl_out <- function(df,name,suppress=FALSE, env = NULL){
   } else if(!is.null(env)){
      
     
-    if(!is.environment(env)){
+    if(!is.environment(.GlobalEnv[[env]])){
       
       envName <- new.env(parent = emptyenv())
       nam <<- tbl_df(df)
@@ -195,7 +195,7 @@ tbl_out <- function(df,name,suppress=FALSE, env = NULL){
       #rm(envName, envir = .GlobalEnv)
       tbl_df(df)
       
-    } else if(is.environment(env)){
+    } else if(is.environment(.GlobalEnv[[env]])){
       
       nam <<- tbl_df(df)
       env <- .GlobalEnv[[env]]
